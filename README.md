@@ -91,3 +91,7 @@ MIT License
 ## 📞 İletişim
 
 Proje hakkında sorularınız için issue açabilir veya pull request gönderebilirsiniz.
+
+---
+
+🚀 **Ready for GitHub Pages deployment!**
