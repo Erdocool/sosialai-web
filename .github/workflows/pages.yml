@@ -3,7 +3,6 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [ master ]
-  workflow_dispatch:
 
 permissions:
   contents: read
@@ -14,47 +13,18 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
       
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '18'
       
-      - name: Debug - List files
-        run: |
-          pwd
-          ls -la
-          ls -la frontend/
-      
-      - name: Install dependencies
+      - name: Install and Build
         run: |
           cd frontend
-          npm install --verbose
+          npm install
+          npm run build
       
-      - name: Debug - Check node_modules
-        run: |
-          cd frontend
-          ls -la node_modules/ | head -10
-      
-      - name: Build
-        run: |
-          cd frontend
-          npm run build --verbose
-      
-      - name: Debug - Check dist folder
-        run: |
-          cd frontend
-          ls -la dist/
-      
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
-      
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: frontend/dist
-      
-      - name: Deploy to GitHub Pages
+      - name: Deploy
         uses: actions/deploy-pages@v4
